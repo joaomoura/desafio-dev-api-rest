@@ -51,8 +51,22 @@ Com isso o programa estará pronto para ser usado através da url: ``` http://lo
 
 ###  <a name="banco"><a/>Banco de Dados
 Uma vez dockerizado e instalado as dependências o programa criará automaticamente todas as tabelas necessárias para o funcionamento do sistema.
+
 ### Modelo MRE do Banco de dados
 <img width="502" alt="Swagger API" src="mre.png">
+
+### Script de criação de uma Pessoa
+
+Abra o banco de dados num SGBD que preferir e via linha de comando execute o script abaixo:
+```sh
+INSERT INTO `Pessoas` (`idPessoa`, `nome`, `cpf`, `dataNascimento`, `dataCriacao`, `updatedAt`) VALUES
+	(1, 'João Paulo', '01122233345', '1985-04-12', '2021-04-26', '2021-04-26');
+
+OU
+
+INSERT INTO `Pessoas` (`nome`, `cpf`, `dataNascimento`, `dataCriacao`, `updatedAt`) VALUES
+	('João Paulo', '01122233345', '1985-04-12', '2021-04-26', '2021-04-26);
+```
 
 ###  <a name="execucao-app"><a/>Execução da Aplicação
 ---

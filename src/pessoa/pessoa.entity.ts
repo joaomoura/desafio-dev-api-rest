@@ -32,7 +32,7 @@ export class Pessoa extends Model<Pessoa> {
     @Length(11, 11) readonly cpf: string;
 
     @Column({
-        type: DataType.DATE,
+        type: DataType.DATEONLY,
         allowNull: false,
     })
     @IsOptional({ groups: [UPDATE] })
