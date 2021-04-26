@@ -1,5 +1,4 @@
 import { OperacaoModule } from './operacao/operacao.module';
-import { UsuarioModule } from './usuario/usuario.module';
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { SequelizeModule } from '@nestjs/sequelize/dist/sequelize.module';
@@ -18,7 +17,6 @@ import 'dotenv/config';
 
 @Module({
     imports: [
-        UsuarioModule,
         PessoasModule,
         ContaModule,
         TransacaoModule,
@@ -35,7 +33,6 @@ import 'dotenv/config';
             synchronize: true,
         }),
         SequelizeModule.forFeature([Pessoa, Conta, Transacao])
-        // SequelizeModule.forFeature([Pessoa, Conta, Transacao])
     ],
     controllers: [AppController],
     providers: [

@@ -7,6 +7,7 @@
 - [Banco de Dados](#banco)
 - [Execução da Aplicação](#execucao-app)
 - [Banco de Dados](#banco)
+- [Rotas da Aplicação](#rotas-app)
 
 
 [índice&#8613;](#indice)
@@ -94,9 +95,14 @@ $ npm run start:prod
  
  ###  <a name="testes-manuais"><a/>Testes Manuais
  ##### Insomnia
- Aqui eu usei o Insomnia para consumir a API da aplicação pode ser usar tambem o POSTMAN se preferir
- Tento o Insominia instaldo basta importar no Insomnia a collection ``` banking-nestjs.collection.json ``` que encontra-se dentro do diretório collections.
- Para isto ao abrir o programa ir em Import/Export e escolher a opção Import Data e abrir o arquivo especificado acima.
+ Aqui eu usei o Insomnia para consumir a API da aplicação pode ser usar tambem o POSTMAN se preferir. 
+ Estando com o Insominia instaldo basta importar no Insomnia a collection ``` banking-nestjs.collection.json ``` que encontra-se dentro do diretório collections.
+
+ [Insomnia]](https://support.insomnia.rest/article/172-importing-and-exporting-data)
+
+ Para isto ao abrir o programa ir em Import/Export e escolher a opção Import Data e abrir o arquivo especificado acima. 
+ 
+ <img width="502" alt="Insomnia Import Data" src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/59e383122c7d3a40f0ed78e2/images/6040fbe88502d1120e90da9d/file-7wiHFaxg6T.png">
 
  >/collections/banking-nestjs.collection.json
  ---
@@ -111,4 +117,3 @@ $ npm run start:prod
  Por favor, consultar a imagem abaixo.
 
 <img width="502" alt="Swagger API" src="swagger.png">
- ---
