@@ -1,86 +1,102 @@
+# API em Nestjs com Mysql | Docker
 
-### Desafio
-Olá, queremos convidá-lo(a) a participar do nosso desafio de seleção.  Pronto(a) para participar? Seu trabalho será visto pelo nosso time e você receberá um feedback ao final sobre o que achamos do seu trabalho. Não é legal?
+# <a name="indice"><a/> Índice
+- [Requerimentos](#requerimentos)
+- [Configuração](#configuracao)
+- [Dependências](#dependencias)
+- [Banco de Dados](#banco)
+- [Testes Automatizados](#testes-auto)
+- [Execução da Aplicação](#execucao-app)
+- [Banco de Dados](#banco)
 
-### Sobre a oportunidade 
-A vaga é para Desenvolvedor(a), temos vagas com diversos níveis de senioridade e para cada um deles utilizaremos critérios específicos considerando este aspecto, combinado? 
-Se você for aprovad(a) nesta etapa, será convidado para uma entrevista final.
 
-### Desafio Técnico
-  Nós trabalhamos com meios de pagamento e nada melhor do que um bom sistema para gestão de contas:
-  
-  - Pré-requisitos:
-    ```
-    * Desenvolver os recursos em API Rest que realizam operações bancárias com a entidade conta a seguir:
-    ```
-    | Contas | Tipo |
-    |-|-|
-    | idConta | Numérico |
-    | idPessoa | Numérico |
-    | saldo | Monetário |
-    | limiteSaqueDiario | Monetário |
-    | flagAtivo | Condicional |
-    | tipoConta | Numérido |
-    | dataCriacao | Data |
+[índice&#8613;](#indice)
+### <a name="requerimentos"><a/>Requerimentos  
 
-    ```
-    * Tabela de transações realizadas na conta
-    ```
-    | Transacoes | Tipo |
-    |-|-|
-    | idTransacao | Numérico |
-    | idConta | Numérico |
-    | valor | Monetário |
-    | dataTransacao | Data |
+Requer [Node.js](https://nodejs.org/), [Typescript](https://www.typescriptlang.org/), [Nestjs](https://nestjs.com/), [Docker](https://www.docker.com/)
 
-    ```
-    * P.S.: Não é necessário realizar operações com a tabela pessoa, mas é necessária a criação da tabela para mapeamento da relação com a conta e enviar script de criação de pelo menos uma pessoa.
-    ```
+[índice&#8613;](#indice)
+### <a name="configuracao"><a/> Configuração
+Clone o projeto através desse repositório.
+Edite as variáveis de ambiente no arquivo **.env** na raiz do projeto para configurar o acesso ao banco de dados.
+Preencha os valores das variáveis de ambiente conforme desejar, segue exemplo abaixo.
+##### Observação: Host no Windows
+Se o sistema operacional for Windows mesmo configurando a variável ``` DATABASE_HOST ``` a maioria das vezes a mesma se mantém como localhost.
 
-    | Pessoas | Tipo |
-    |-|-|
-    | idPessoa | Numérico |
-    | nome | Texto |
-    | cpf | Texto |
-    | dataNascimento | Data |    
+#### Variáveis de Ambiente
+```sh
+DATABASE_USER=root
+DATABASE_HOST=localhost
+MYSQL_DATABASE=bankink
+MYSQL_ROOT_PASSWORD=root
+```
+Feito isso o programa estará pronto para ser dockerizado.
+Abra o projeto através de um terminal de comando e rode o seguinte comando:
 
-  - O que esperamos como escopo mínimo:
-    ```
-    * Implementar path que realiza a criação de uma conta;
-    * Implementar path que realiza operação de depósito em uma conta;
-    * Implementar path que realiza operação de consulta de saldo em determinada conta;
-    * Implementar path que realiza operação de saque em uma conta;
-    * Implementar path que realiza o bloqueio de uma conta;
-    * Implementar path que recupera o extrato de transações de uma conta;
-    ```
-  - O que será diferencial:
-    ```
-    * Implementar extrato por período;
-    * Elaborar manual de execução;
-    * Elaborar documentação;
-    * Elaborar testes.
-    ```
-    
-  - O que vamos avaliar:
-    ```
-    * Seu código; 
-    * Dockerfile ou docker-compose do serviço;
-    * Script de banco;
-    * Organização;
-    * Boas práticas;
-    * Diferenciais; 
-    ```
+```sh
+docker-compose up -d
+```
+Com isso projeto será dockerizado e o mesmo montará o banco de dados necessário para a aplicação.
+[índice&#8613;](#indice)
 
-  - Teste para o time de Arquitetura? 
-    ```
-    * Baseado no que foi desenvolvido nos envie uma solução da Arquitetura utilizando serviços na nuvem como a AWS (diferencial), Azure e GCP;
-    * Junto com as instruções de execução, explique qual Design Pattern você utilizou e por que o escolheu para a sua solução.
-    ```
-  
+###  <a name="configuracao"><a/>Instalação de Dependêcias e run do sistema
+Abra um terminal, na raiz do projeto, e instale as dependências. 
+```sh
+$ npm install
+$ npm run start:dev
+```
+Com isso o programa estará pronto para ser usado através da url: ``` http://localhost:3000 ```
+[índice&#8613;](#indice)
 
-### Instruções
-      1. Faça o fork do desafio;
-      2. Crie um repositório privado no seu github para o projeto e adicione como colaborador o usuário wesleyjoliveira;
-      3. Desenvolva. Você terá 7 (sete) dias a partir da data do envio do desafio; 
-      4. Após concluir seu trabalho faça um push; 
-      5. Envie um e-mail à pessoa que está mantendo o contato com você durante o processo notificando a finalização do desafio para validação.
+###  <a name="banco"><a/>Banco de Dados
+Uma vez dockerizado e instalado as dependências o programa criará automaticamente todas as tabelas necessárias para o funcionamento do sistema.
+[índice&#8613;](#indice)
+
+###  <a name="testes-auto"><a/>Testes Automatizados
+##### Jest 
+Para rodar os testes execute o comando:
+```sh
+$ npm test
+```
+[índice&#8613;](#indice)
+###  <a name="execucao-app"><a/>Execução da Aplicação
+---
+##### Para ambiente Dev
+Abra o terminal na raiz do projeto e execute:
+```sh
+$ npm run start:dev 
+```
+
+##### Para ambiente Prod
+Em uma guia do terminal, na raiz do projeto, execute:
+```sh
+$ npm run start:prod 
+```
+----
+ >O Nestjs, através do typescript, realizará a transpilação do código .ts em .js, e alocará no diretório dist na raiz do projeto. Esse é o diretório para publicação.
+ 
+ ----
+ >No ambiente de DEV, o nestjs ficará assistindo os arquivos .ts, logo a cada alteração em um arquivo .ts, e automaticamente um novo arquivo .js será gerado ou atualizado.
+ ----
+ >No ambiente de PROD, o nestjs gerará uma única vez o diretório dist com a transpilação dos arquivos Typescript e acionará o node para levantar a aplicação apontando para o server na raiz do dist.
+ ---
+ [índice&#8613;](#indice)
+ 
+ ###  <a name="testes-manuais"><a/>Testes Manuais
+ ##### Postman
+ 
+ Importar no Postman a collection dock.postman_collection.json que encontra-se dentro do diretório postman.
+ >/postman/dock.postman_collection.json
+ ---
+ [índice&#8613;](#indice)
+ ### <a name="rotas-app"><a/> Rotas da Aplicação
+ ##### Host: localhost:5000
+ 
+ [índice&#8613;](#indice)
+
+ ##### Documentação das rotas via Swagger API em http://localhost:3000/docs 
+
+ Por favor, consulte a imagem abaixo.
+
+<img width="502" alt="Swagger API" src="mre.png">
+---

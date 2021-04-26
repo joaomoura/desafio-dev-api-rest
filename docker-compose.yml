@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  nest:
+    image: kyhsa93/nestjs-rest-cqrs-example
+    restart: always
+    env_file:
+      - .env
+    links:
+      - database
+
+  database:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    volumes:
+      - ~/database/nest:/var/lib/mysql
