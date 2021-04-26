@@ -51,7 +51,6 @@ Com isso o programa estará pronto para ser usado através da url: ``` http://lo
 Uma vez dockerizado e instalado as dependências o programa criará automaticamente todas as tabelas necessárias para o funcionamento do sistema.
 ### Modelo MRE do Banco de dados
 <img width="502" alt="Swagger API" src="mre.png">
-[índice&#8613;](#indice)
 
 ###  <a name="execucao-app"><a/>Execução da Aplicação
 ---
@@ -78,10 +77,12 @@ $ npm run start:prod
  [índice&#8613;](#indice)
  
  ###  <a name="testes-manuais"><a/>Testes Manuais
- ##### Postman
- 
- Importar no Postman a collection dock.postman_collection.json que encontra-se dentro do diretório postman.
- >/postman/dock.postman_collection.json
+ ##### Insomnia
+ Aqui eu usei o Insomnia para consumir a API da aplicação pode ser usar tambem o POSTMAN se preferir
+ Tento o Insominia instaldo basta importar no Insomnia a collection ``` banking-nestjs.collection.json ``` que encontra-se dentro do diretório collections.
+ Para isto ao abrir o programa ir em Import/Export e escolher a opção Import Data e abrir o arquivo especificado acima.
+
+ >/collections/banking-nestjs.collection.json
  ---
  [índice&#8613;](#indice)
  ### <a name="rotas-app"><a/> Rotas da Aplicação
@@ -90,8 +91,8 @@ $ npm run start:prod
  [índice&#8613;](#indice)
 
  ##### Documentação das rotas via Swagger API em http://localhost:3000/docs 
-
+ Aqui se encontra todas as rotas e as mesmas podem ser testadas via Insomnia/Postman
  Por favor, consultar a imagem abaixo.
 
 <img width="502" alt="Swagger API" src="swagger.png">
----
+ ---
