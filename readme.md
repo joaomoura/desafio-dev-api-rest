@@ -35,7 +35,8 @@ Abra o projeto através de um terminal de comando e rode o seguinte comando:
 ```sh
 docker-compose up -d
 ```
-Com isso projeto será dockerizado e o mesmo montará o banco de dados necessário para a aplicação.
+Com isso projeto será dockerizado e o mesmo montará o banco de dados necessário para a aplicação
+
 [índice&#8613;](#indice)
 
 ###  <a name="configuracao"><a/>Instalação de Dependêcias e run do sistema
@@ -45,6 +46,7 @@ $ npm install
 $ npm run start:dev
 ```
 Com isso o programa estará pronto para ser usado através da url: ``` http://localhost:3000 ```
+
 [índice&#8613;](#indice)
 
 ###  <a name="banco"><a/>Banco de Dados
