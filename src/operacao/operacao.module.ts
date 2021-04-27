@@ -5,7 +5,7 @@ import { TransacaoService } from './../transacao/transacao.service';
 import { OperacaoController } from './operacao.controller';
 import { Module } from "@nestjs/common";
 import { SequelizeModule } from '@nestjs/sequelize';
-import { OperacaoService } from './transacao.service';
+import { OperacaoService } from './operacao.service';
 
 @Module({
     imports: [

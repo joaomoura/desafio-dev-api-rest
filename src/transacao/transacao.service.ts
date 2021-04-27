@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Transacao } from './transacao.entity';
 import { ContaService } from './../conta/conta.service';
 import { Conta } from './../conta/conta.entity';
-import { OperacaoService } from './../operacao/transacao.service';
+import { OperacaoService } from './../operacao/operacao.service';
 
 @Injectable()
 export class TransacaoService {
