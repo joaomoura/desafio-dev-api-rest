@@ -10,7 +10,6 @@ export class OperacaoService {
     constructor(
         private readonly pessoaService: PessoaService,
         private readonly contaService: ContaService,
-        private readonly transacaoService: TransacaoService
     ) { }
 
     public getDataDeHojeFormatada() {
