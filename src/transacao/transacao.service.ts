@@ -67,6 +67,10 @@ export class TransacaoService {
     async extrato(idConta: number) {
         const { Op } = require("sequelize");
 
+        const extrato = await this.transacaoModel.findAll({
+            where: { idConta: idConta }
+        });
+
         const transacoesDeDepositos = await this.transacaoModel.findAll({
             where: { idConta: idConta, valor: { [Op.gt]: 0 } }
         });
@@ -81,11 +85,18 @@ export class TransacaoService {
             where: { idConta: idConta }
         });
         const total = transacoes.reduce((total, transacao) => total + Number(transacao.valor), 0);
-        return { depositos, saques, total}
+        return { extrato, depositos, saques, total}
     }
 
     async extratoPorPeriodo(idConta: number, dataInicial, dataFinal) {
         const { Op } = require("sequelize");
+
+        const extrato = await this.transacaoModel.findAll({
+            where: {
+                idConta: idConta,
+                dataTransacao: { [Op.between]: [dataInicial, dataFinal] }
+            }
+        });
 
         const transacoesDeDepositos = await this.transacaoModel.findAll({
             where: { 
@@ -112,6 +123,6 @@ export class TransacaoService {
             }
         });
         const total = transacoes.reduce((total, transacao) => total + Number(transacao.valor), 0);
-        return { depositos, saques, total }
+        return { extrato, depositos, saques, total }
     }
 }
