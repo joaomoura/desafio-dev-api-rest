@@ -5,7 +5,6 @@ import { Transacao } from './transacao.entity';
 import { TransacaoController } from './transacao.controller';
 import { TransacaoService } from './transacao.service';
 import { OperacaoService } from './../operacao/transacao.service';
-// import { IsValorMaiorQueLimitDiarioConstraint } from './../conta/validators/isMaiorQueLimiteDiario.validator';
 
 @Module({
     imports: [SequelizeModule.forFeature([Transacao])],

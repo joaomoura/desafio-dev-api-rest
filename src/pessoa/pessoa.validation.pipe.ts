@@ -9,27 +9,17 @@ export class PessoaValidationPipe implements PipeTransform {
 
     async transform(entity: any, metadata: ArgumentMetadata) {
 
-        console.log(entity);
-
-        // Dynamically determine the groups
         const groups = [];
-        // if (entity.seusername == 'joaomoura') {
-        //     groups.push('valid');
-        // }
 
         groups.push('valid');
 
-        // Transform to class with groups
         const entityClass = plainToClass(Pessoa, entity, { groups });
 
-        // Validate with groups
         const errors = await validate(entityClass, { groups });
         if (errors.length > 0) {
             throw new HttpException(`Validation failed: ${this.formatErrors(errors)}`, HttpStatus.BAD_REQUEST);
         }
 
-        // return entity;
-        console.log(errors);
         return entity;
     }
 

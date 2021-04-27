@@ -1,7 +1,6 @@
 import { TransacaoService } from './../transacao/transacao.service';
 import { ContaService } from 'src/conta/conta.service';
 import { Controller, Post, Body, Get, Param, HttpStatus, NotFoundException, Put, Delete, Res } from '@nestjs/common';
-import { Transacao } from 'src/transacao/transacao.entity';
 
 @Controller('operacoes')
 export class OperacaoController {
@@ -24,7 +23,6 @@ export class OperacaoController {
     async sacarDaConta(@Param() params, @Body() body, @Res() res) {
         try {
             const totalDeSaquesDiario: number = await this.transacaoService.totalSaqueNoDia(params.idConta);
-            // const saldoNodia: number = await this.transacaoService.consultarSaldo(params.idConta);
             const saldoNodia: number = await this.contaService.consultarSaldo(params.idConta);
             if (await this.contaService.isDisponivelNovoSaque(params.idConta, body.valor, saldoNodia, totalDeSaquesDiario)) {
                 await this.contaService.sacar(params.idConta, body.valor);
@@ -53,7 +51,6 @@ export class OperacaoController {
 
     @Get('saldo/conta/:idConta')
     async consultarSaldoDaConta(@Param() params, @Res() res) {
-        // const saldo = await this.transacaoService.consultarSaldo(params.idConta);
         const saldo: number = await this.contaService.consultarSaldo(params.idConta);
         res.status(HttpStatus.OK)
             .json({ 'saldo': Number(saldo) });

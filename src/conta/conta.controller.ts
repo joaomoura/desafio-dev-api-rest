@@ -1,8 +1,6 @@
 import { Controller, Post, Body, Get, Param, HttpStatus, NotFoundException, Put, Delete, Res } from '@nestjs/common';
 import { ContaService } from './conta.service';
 import { Conta } from './conta.entity';
-import { NestResponseBuilder } from './../core/http/nestResponseBuilder';
-import { NestResponse } from './../core/http/nestResponse';
 
 @Controller('contas')
 export class ContaController {
