@@ -1,9 +1,7 @@
 import { Injectable, Delete } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Transacao } from './transacao.entity';
-import { ContaService } from './../conta/conta.service';
-import { Conta } from './../conta/conta.entity';
-import { OperacaoService } from './../operacao/operacao.service';
+import { OperacaoService } from '../operacao/operacao.service';
 
 @Injectable()
 export class TransacaoService {
@@ -66,63 +64,98 @@ export class TransacaoService {
 
     async extrato(idConta: number) {
         const { Op } = require("sequelize");
+        const pessoa = await this.operacaoService.getPessoaByIdConta(idConta);
+        const extrato = await this.getExtratoByIdConta(idConta);
+        const depositos = await this.getTransacoesDeDepositosByIdConta(idConta);
+        const saques = await this.getTransacoesDeSaquesByIdConta(idConta);
+        const total = await this.getTransacoesByIdConta(idConta);
 
-        const extrato = await this.transacaoModel.findAll({
-            where: { idConta: idConta }
-        });
-
-        const transacoesDeDepositos = await this.transacaoModel.findAll({
-            where: { idConta: idConta, valor: { [Op.gt]: 0 } }
-        });
-        const depositos = transacoesDeDepositos.reduce((total, transacao) => total + Number(transacao.valor), 0);
-
-        const transacoesDeSaques = await this.transacaoModel.findAll({
-            where: { idConta: idConta, valor: { [Op.lt]: 0 } }
-        });
-        const saques = transacoesDeSaques.reduce((total, transacao) => total + Number(transacao.valor), 0);
-
-        const transacoes = await this.transacaoModel.findAll({
-            where: { idConta: idConta }
-        });
-        const total = transacoes.reduce((total, transacao) => total + Number(transacao.valor), 0);
-        return { extrato, depositos, saques, total}
+        return { pessoa: pessoa.nome, movimentos: extrato, depositos, saques, total }
     }
 
     async extratoPorPeriodo(idConta: number, dataInicial, dataFinal) {
         const { Op } = require("sequelize");
+        const pessoa = await this.operacaoService.getPessoaByIdConta(idConta);
+        const extrato = await this.getPorPeriodoByIdConta(idConta, dataInicial, dataFinal);
+        const depositos = await this.getTransacoesDeDepositosPorPeriodoByIdConta(idConta, dataInicial, dataFinal);
+        const saques = await this.getTransacoesDeSaquesPorPeriodoByIdConta(idConta, dataInicial, dataFinal);
+        const total = await this.getTransacoesPorPeriodoByIdConta(idConta, dataInicial, dataFinal);
 
-        const extrato = await this.transacaoModel.findAll({
+        return { pessoa: pessoa.nome, movimentos: extrato, depositos, saques, total }
+    }
+
+    async getExtratoByIdConta(idConta) {
+        return await this.transacaoModel.findAll({
+            where: { idConta: idConta }
+        });
+    }
+
+    async getTransacoesDeDepositosByIdConta(idConta) {
+        const { Op } = require("sequelize");
+        const transacoesDeDepositos = await this.transacaoModel.findAll({
+            where: { idConta: idConta, valor: { [Op.gt]: 0 } }
+        });
+        return await transacoesDeDepositos.reduce((total, transacao) => total + Number(transacao.valor), 0);
+    }
+
+    async getTransacoesDeSaquesByIdConta(idConta) {
+        const { Op } = require("sequelize");
+        const transacoesDeSaques = await this.transacaoModel.findAll({
+            where: { idConta: idConta, valor: { [Op.lt]: 0 } }
+        });
+        return await transacoesDeSaques.reduce((total, transacao) => total + Number(transacao.valor), 0);
+    }
+
+    async getTransacoesByIdConta(idConta) {
+        const { Op } = require("sequelize");
+        const transacoes = await this.transacaoModel.findAll({
+            where: { idConta: idConta }
+        });
+        return await transacoes.reduce((total, transacao) => total + Number(transacao.valor), 0);
+    }
+
+    async getPorPeriodoByIdConta(idConta: number, dataInicial, dataFinal) {
+        const { Op } = require("sequelize");
+        return await this.transacaoModel.findAll({
             where: {
                 idConta: idConta,
                 dataTransacao: { [Op.between]: [dataInicial, dataFinal] }
             }
         });
+    }
 
+    async getTransacoesDeDepositosPorPeriodoByIdConta(idConta: number, dataInicial, dataFinal) {
+        const { Op } = require("sequelize");
         const transacoesDeDepositos = await this.transacaoModel.findAll({
-            where: { 
-                idConta: idConta, 
+            where: {
+                idConta: idConta,
                 valor: { [Op.gt]: 0 },
                 dataTransacao: { [Op.between]: [dataInicial, dataFinal] }
             }
         });
-        const depositos = transacoesDeDepositos.reduce((total, transacao) => total + Number(transacao.valor), 0);
+        return await transacoesDeDepositos.reduce((total, transacao) => total + Number(transacao.valor), 0);
+    }
 
+    async getTransacoesDeSaquesPorPeriodoByIdConta(idConta: number, dataInicial, dataFinal) {
+        const { Op } = require("sequelize");
         const transacoesDeSaques = await this.transacaoModel.findAll({
-            where: { 
-                idConta: idConta, 
+            where: {
+                idConta: idConta,
                 valor: { [Op.lt]: 0 },
                 dataTransacao: { [Op.between]: [dataInicial, dataFinal] }
             }
         });
-        const saques = transacoesDeSaques.reduce((total, transacao) => total + Number(transacao.valor), 0);
+        return await transacoesDeSaques.reduce((total, transacao) => total + Number(transacao.valor), 0);
+    }
 
+    async getTransacoesPorPeriodoByIdConta(idConta: number, dataInicial, dataFinal) {
+        const { Op } = require("sequelize");
         const transacoes = await this.transacaoModel.findAll({
-            where: { 
+            where: {
                 idConta: idConta,
                 dataTransacao: { [Op.between]: [dataInicial, dataFinal] }
             }
         });
-        const total = transacoes.reduce((total, transacao) => total + Number(transacao.valor), 0);
-        return { extrato, depositos, saques, total }
+        return await transacoes.reduce((total, transacao) => total + Number(transacao.valor), 0);
     }
 }

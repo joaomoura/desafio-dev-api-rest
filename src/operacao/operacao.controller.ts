@@ -58,16 +58,16 @@ export class OperacaoController {
 
     @Get('extrato/conta/:idConta')
     async extratoDaConta(@Param() params, @Res() res) {
-        const extrato = await this.transacaoService.extrato(params.idConta);
         const saldo: number = await this.contaService.consultarSaldo(params.idConta);
+        const extrato = await this.transacaoService.extrato(params.idConta);
         res.status(HttpStatus.OK)
             .json({ extrato, saldo });
     }
 
     @Get('extrato/conta/:idConta/inicio/:dataInicial/final/:dataFinal')
     async extratoDaContaPorPeriodo(@Param() params, @Res() res) {
-        const extrato = await this.transacaoService.extratoPorPeriodo(params.idConta, params.dataInicial, params.dataFinal);
         const saldo: number = await this.contaService.consultarSaldo(params.idConta);
+        const extrato = await this.transacaoService.extratoPorPeriodo(params.idConta, params.dataInicial, params.dataFinal);
         res.status(HttpStatus.OK)
             .json({ extrato, saldo });
     }
