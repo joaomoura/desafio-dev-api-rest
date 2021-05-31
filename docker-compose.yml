@@ -1,19 +1,38 @@
 version: "3.5"
 services:
-  nest:
-    image: kyhsa93/nestjs-rest-cqrs-example
-    restart: always
-    env_file:
-      - .env
-    links:
-      - database
+    api:
+        # image: thomas-oliver/nestjs-dockerized 
+        build:
+            dockerfile: Dockerfile
+            context: .
+        depends_on: 
+            - database
+        environment: 
+            # DATABASE_URL: postgres://user:password@postgres:5432/db
+            DATABASE_HOST: database
+            DATABASE_USER: root
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: nest
+            NODE_ENV: development
+            PORT: 3000
+        ports:
+            - "8080:3000"
 
-  database:
-    image: mysql:5.7
-    restart: always
-    ports:
-      - 3306:3306
-    env_file:
-      - .env
-    volumes:
-      - ~/database/nest:/var/lib/mysql
+    database:
+        image: mysql:5.7
+        restart: always
+        ports:
+        - 3306:3306
+        env_file:
+        - .env
+        volumes:
+        - ~/database/nest:/var/lib/mysql
+
+    # postgres:
+    #     image: postgres:10.4
+    #     ports:
+    #         - "35000:5432"
+    #     environment: 
+    #         POSTGRES_USER: user
+    #         POSTGRES_PASSWORD: password
+    #         POSTGRES_DB: db
